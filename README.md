@@ -6,7 +6,7 @@ These classes currently support only the Private Application type, and there are
 
 The aim of this project is to act as a starting point for accessing Xero APIs via Apex. I wanted to share this project as I spent a lot of time getting the authentication working for Xero, as Apex doesn't have a standard OAuth 1.0 library and there wasn't much detail online about it.
 
-For more information about the Xero APIs, get out:
+For more information about the Xero APIs, check out:
 http://developer.xero.com/documentation/api/api-overview/
 
 ## Quick Setup
