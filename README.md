@@ -8,6 +8,7 @@ http://developer.xero.com/documentation/api/api-overview/
 ## Quick Setup
 
 1. Create your private and public keys. Apex only supports PKCS#8 format, not PKCS#12 with the Xero docs recommend. Use these commands to generate your private key in PKCS#8 format
+
     openssl genrsa -out xero_privatekey.pem 1024
     openssl req -newkey rsa:1024 -x509 -key xero_privatekey.pem -out xero_publickey.cer -days 1825 
     openssl pkcs8 -topk8 -nocrypt -in xero_privatekey.pem -out xero_privatekey.pcks8
