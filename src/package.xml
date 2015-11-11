@@ -8,5 +8,9 @@
         <members>*</members>
         <name>CustomObject</name>
     </types>
+    <types>
+		<members>*</members>
+		<name>RemoteSiteSetting</name>
+	</types>
     <version>35.0</version>
 </Package>

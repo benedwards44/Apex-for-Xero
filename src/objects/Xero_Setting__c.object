@@ -47,6 +47,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>Settings for Xero API integration.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -77,6 +78,7 @@
     </fields>
     <fields>
         <fullName>Endpoint__c</fullName>
+        <defaultValue>&quot;https://api.xero.com/api.xro/2.0/&quot;</defaultValue>
         <externalId>false</externalId>
         <label>Endpoint</label>
         <length>255</length>
@@ -90,6 +92,8 @@
         <externalId>false</externalId>
         <inlineHelpText>Generated here:
 http://developer.xero.com/documentation/advanced-docs/public-private-keypair/
+
+Exclude ----BEGIN---- and -----END---- lines
 
 But use pkcs8 over pkcs12 - as 12 isn&apos;t supported by Salesforce.</inlineHelpText>
         <label>Private Key</label>
