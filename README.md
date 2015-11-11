@@ -17,3 +17,23 @@ openssl pkcs8 -topk8 -nocrypt -in xero_privatekey.pem -out xero_privatekey.pcks8
 3. Deploy the /src/ folder to your Salesforce Org
 4. Access the Xero Settings tab and create a new Xero Settings record. Enter your Xero credentials (from your application created in Xero)
 5. You can now access Xero API resources via Apex. Eg...
+
+## Usage
+
+Once the above steps are complete, you can now access the example methods to access the Xero API resources. There are currently two examples set up:
+
+#### Get Contacts
+
+This method queries all contacts in your Xero org. To execute, simply run:
+```
+XeroAccountingApi.getContacts();
+```
+And a list of type XeroContact is returned.
+
+#### Get Invoices
+
+Run:
+```
+XeroAccountingApi.getInvoices();
+```
+And a list of type XeroInvoice is returned.
