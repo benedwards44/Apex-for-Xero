@@ -1,8 +1,12 @@
 # Apex-for-Xero
 
-This application contains Apex utilities for accessing the Xero APIs.
+This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
-These classes currently support only the Private Application type. For more information about the Xero APIs, get out:
+These classes currently support only the Private Application type, and there are limited resources currently setup. 
+
+The aim of this project is to act as a starting point for accessing Xero APIs via Apex. I wanted to share this project as I spent a lot of time getting the authentication working for Xero, as Apex doesn't have a standard OAuth 1.0 library and there wasn't much detail online about it.
+
+For more information about the Xero APIs, get out:
 http://developer.xero.com/documentation/api/api-overview/
 
 ## Quick Setup
@@ -37,3 +41,8 @@ Run:
 XeroAccountingApi.getInvoices();
 ```
 And a list of type XeroInvoice is returned.
+
+
+## Contributing
+
+I'm very happy for people to contribute to this project to add additional API methods. Please fork this repo and add methods as you please.
