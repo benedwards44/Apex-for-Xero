@@ -2,7 +2,7 @@
 
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
-These classes are set up to use the [Private Application](http://developer.xero.com/documentation/getting-started/private-applications/) type
+These classes are set up to use the [Private Application](http://developer.xero.com/documentation/getting-started/private-applications/) type.
 
 The aim of this project is to act as a starting point for accessing Xero APIs via Apex. I wanted to share this project as I spent a lot of time getting the authentication working for Xero, as Apex doesn't have a standard OAuth 1.0 library and there wasn't much detail online about it.
 
