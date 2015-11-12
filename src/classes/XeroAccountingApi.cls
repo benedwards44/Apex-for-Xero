@@ -18,8 +18,14 @@ public with sharing class XeroAccountingApi {
 		// If successful response
 		if (response.getStatusCode() == 200) {
 
-			// Parse JSON response into class objects
-			xeroContacts = (List<XeroContact>) JSON.deserialize(response.getBody(), List<XeroContact>.class);
+			// Parse the JSON response
+			Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+
+			// Re-serialize just the Contacts portion back to JSOn
+			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get('Contacts'));
+
+			// And finally parse the now re-serialized contact list back into Contact objects
+			xeroContacts = (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
 		}
 		else {
 
