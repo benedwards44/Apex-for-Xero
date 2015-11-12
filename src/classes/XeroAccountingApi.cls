@@ -14,7 +14,7 @@ public with sharing class XeroAccountingApi {
 		List<XeroContact> xeroContacts = new List<XeroContact>();
 
 		// Execute the callout to the Contacts GET resource
-		HttpResponse response = XeroCalloutUtility.executeCallout(XeroConstants.API_NAME_CONTACTS);
+		HttpResponse response = XeroCalloutUtility.executeCallout('Contacts');
 
 		// If successful response
 		if (response.getStatusCode() == 200) {
@@ -23,7 +23,7 @@ public with sharing class XeroAccountingApi {
 			Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
 
 			// Re-serialize just the Contacts portion back to JSOn
-			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get(XeroConstants.API_NAME_CONTACTS));
+			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get('Contacts'));
 
 			// And finally parse the now re-serialized contact list back into Contact objects
 			xeroContacts = (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
@@ -36,41 +36,6 @@ public with sharing class XeroAccountingApi {
 
 		return xeroContacts;
 	}
-
-
-	/**
-	* 	@author Ben Edwards (ben@benedwards.co.nz)
-	*	@description Method to return ALL invoices for your Xero environment
-	* 	@return List of Xero Invoice wrapper classes
-	**/
-	public static List<XeroInvoice> getInvoices () {
-
-		List<XeroInvoice> xeroInvoices = new List<XeroInvoice>();
-
-		// Execute the callout to the Contacts GET resource
-		HttpResponse response = XeroCalloutUtility.executeCallout(XeroConstants.API_NAME_INVOICES);
-
-		// If successful response
-		if (response.getStatusCode() == 200) {
-
-			// Parse the JSON response
-			Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-
-			// Re-serialize just the Contacts portion back to JSOn
-			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get(XeroConstants.API_NAME_INVOICES));
-
-			// And finally parse the now re-serialized contact list back into Contact objects
-			xeroInvoices = (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
-		}
-		else {
-
-			// Raise error
-			throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
-		}
-
-		return xeroInvoices;
-	}
-
 
 	/**
 	* 	@author Ben Edwards (ben@benedwards.co.nz)

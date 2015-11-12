@@ -15,6 +15,9 @@
     <types>
 		<members>*</members>
 		<name>RemoteSiteSetting</name>
-	</types>
+	</types><types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
     <version>35.0</version>
 </Package>

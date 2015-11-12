@@ -1,12 +1,13 @@
 /**
-* Author:       Ben Edwards
-* Date:         2015-11-10
-* Description:  Handles the physical callout to the Xero API
+* @author       Ben Edwards (ben@benedwards.co.nz)
+* @description  Handles the physical callout to the Xero API
 **/
 public with sharing class XeroCalloutUtility {
 
 	/**
-	*	The Xero API settings with are stored in the database
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Query the custom object for the Xero Account Settings
+	* 	@return Returns a single Xero_Setting__c record
 	**/
 	public static Xero_Setting__c xeroSettings {
 
@@ -30,8 +31,11 @@ public with sharing class XeroCalloutUtility {
 		set;
 	}
 	
+	
 	/**
-	*	Execute the physical callout and return the response
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Execute the physical callout and return the response
+	* 	@return Returns the HttpResponse from the Xero API
 	**/
 	public static HttpResponse executeCallout (String resourceName) {
 
