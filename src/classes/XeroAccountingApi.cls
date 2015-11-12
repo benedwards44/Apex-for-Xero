@@ -13,7 +13,7 @@ public with sharing class XeroAccountingApi {
 		List<XeroContact> xeroContacts = new List<XeroContact>();
 
 		// Execute the callout to the Contacts GET resource
-		HttpResponse response = XeroCalloutUtility.executeCallout('Contacts');
+		HttpResponse response = XeroCalloutUtility.executeCallout(XeroConstants.API_NAME_CONTACTS);
 
 		// If successful response
 		if (response.getStatusCode() == 200) {
@@ -22,7 +22,7 @@ public with sharing class XeroAccountingApi {
 			Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
 
 			// Re-serialize just the Contacts portion back to JSOn
-			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get('Contacts'));
+			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get(XeroConstants.API_NAME_CONTACTS));
 
 			// And finally parse the now re-serialized contact list back into Contact objects
 			xeroContacts = (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
@@ -45,13 +45,19 @@ public with sharing class XeroAccountingApi {
 		List<XeroInvoice> xeroInvoices = new List<XeroInvoice>();
 
 		// Execute the callout to the Contacts GET resource
-		HttpResponse response = XeroCalloutUtility.executeCallout('Invoices');
+		HttpResponse response = XeroCalloutUtility.executeCallout(XeroConstants.API_NAME_INVOICES);
 
 		// If successful response
 		if (response.getStatusCode() == 200) {
 
-			// Parse JSON response into class objects
-			xeroInvoices = (List<XeroInvoice>) JSON.deserialize(response.getBody(), List<XeroInvoice>.class);
+			// Parse the JSON response
+			Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+
+			// Re-serialize just the Contacts portion back to JSOn
+			String jsonSerialized = JSON.serialize((List<Object>) jsonResponseMap.get(XeroConstants.API_NAME_INVOICES));
+
+			// And finally parse the now re-serialized contact list back into Contact objects
+			xeroInvoices = (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
 		}
 		else {
 
