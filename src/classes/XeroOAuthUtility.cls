@@ -1,19 +1,20 @@
 /**
-* Author:       Ben Edwards
-* Date:         2015-11-10
-* Description:  OAuth Utility for logging in to Xero via OAuth 1.0
-* 				Taken mostly from https://gist.github.com/surjikal/7539745 but converted to support RSA signing, over HMAC	
-* 				OAuth 1.0a Documentation: http://oauth.net/core/1.0a/#RFC3986
-* 				Details also take from http://help.interfaceware.com/kb/writing-a-xero-adapter
+* @author       Ben Edwards (ben@benedwards.co.nz)
+* @description  OAuth Utility for logging in to Xero via OAuth 1.0
+*               Taken mostly from https://gist.github.com/surjikal/7539745 but converted to support RSA signing, over HMAC  
+*               OAuth 1.0a Documentation: http://oauth.net/core/1.0a/#RFC3986
+*               Details also take from http://help.interfaceware.com/kb/writing-a-xero-adapter
 *
-*				This applicatino uses the Private Application integration approach as per the Xero documentation:
-*				http://developer.xero.com/documentation/getting-started/private-applications/
+*               This applicatino uses the Private Application integration approach as per the Xero documentation:
+*               http://developer.xero.com/documentation/getting-started/private-applications/
 **/
 public with sharing class XeroOAuthUtility {
 	
-	/**
-	*	Accepts an HttpRequest, consumer key (supplied by Xero) and private key (generated via openssl with public key loaded in Xero)
-	**/
+    /**
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Accepts an HttpRequest, consumer key (supplied by Xero) and private key (generated via openssl with public key loaded in Xero)
+    *   @return Return HttpRequest with OAuth parameters set in the header
+    **/
     public static HttpRequest signRequest(HttpRequest req, String consumerKey, String privateKey) {
 
     	// Nonce and Timestamp logic from OAauth documentation: http://oauth.net/core/1.0a/#nonce
@@ -46,9 +47,12 @@ public with sharing class XeroOAuthUtility {
         return req;
     }
 
+
     /**
-	*	Generate the header used for the authenticated with Xero. This takes the generated signature to build the header for the request
-	**/
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Generate the header used for the authenticated with Xero. This takes the generated signature to build the header for the request
+    *   @return Return the OAuth 1.0 header string, which is a concatenation of all the OAuth parameters
+    **/
     private static String generateHeader(String signature, Map<String,String> parameters) {
 
     	// Add OAuth value to the start of the header
@@ -66,10 +70,11 @@ public with sharing class XeroOAuthUtility {
         return header + 'oauth_signature="' + EncodingUtil.urlEncode(signature, 'UTF-8') + '"';
     }
 
-
     /**
-	*	Generate the signature using the consumer secret, private key, the request and parameters
-	**/
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Generate the signature using the consumer secret, private key, the request and parameters
+    *   @return Returns a URL encoded RSA-SHA1 formatted signature. (http://oauth.net/core/1.0a/#anchor18)
+    **/
     private static String generateSignature(HttpRequest req, String consumerSecret, String privateKey, Map<String,String> parameters) {
 
     	// Generates a base string to use for encoding.
@@ -83,10 +88,13 @@ public with sharing class XeroOAuthUtility {
 		return EncodingUtil.base64Encode(signatureBlob);  
     }
 
+
     /**
-	*	Take the current request and parameters to build a base string for encoding
-	*   Example return: GET&https%3A%2F%2Fapi.xero.com%2Fapi.xro%2F2.0%2FInvoices&oauth_consumer_key%3D7YBW ...
-	**/
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Take the current request and parameters to build a base string for encoding
+    *   @return Returns the base string used for creating the OAuth signature. 
+    *           Eg. GET&https%3A%2F%2Fapi.xero.com%2Fapi.xro%2F2.0%2FInvoices&oauth_consumer_key%3D7YBW ...
+    **/
     private static String createBaseString(HttpRequest req, Map<String,String> parameters) {
 
     	// Take a copy of the passed parameters
@@ -134,8 +142,10 @@ public with sharing class XeroOAuthUtility {
     }
 
     /**
-	*	Method to retrieve a URL parameter from a given value
-	**/
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Method to retrieve a URL parameter from a given value
+    *   @return Return a map of URL parameters to the parameter value. Eg. oauth_token (key) => token_value (value)
+    **/
     private static Map<String,String> getUrlParams(String value) {
 
 		Map<String,String> res = new Map<String,String>();

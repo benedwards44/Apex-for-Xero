@@ -1,12 +1,13 @@
 /**
-* Author:       Ben Edwards
-* Date:         2015-11-10
-* Description:  Class to handle API calls for the Xero Accounting API resources
+* @author       Ben Edwards (ben@benedwards.co.nz)
+* @description  Class to handle API calls for the Xero Accounting API resources
 **/
 public with sharing class XeroAccountingApi {
 
 	/**
-	*	Method to return ALL contacts for your Xero environment
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Method to return ALL contacts for your Xero environment
+	* 	@return List of Xero Contact wrapper classes
 	**/
 	public static List<XeroContact> getContacts () {
 
@@ -38,7 +39,9 @@ public with sharing class XeroAccountingApi {
 
 
 	/**
-	*	Method to return ALL invoices for your Xero environment
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Method to return ALL invoices for your Xero environment
+	* 	@return List of Xero Invoice wrapper classes
 	**/
 	public static List<XeroInvoice> getInvoices () {
 
@@ -70,7 +73,8 @@ public with sharing class XeroAccountingApi {
 
 
 	/**
-	*	Custom exception class to handle response errors
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Custom exception class to throw errors for web service callouts
 	**/
 	public class XeroAccountingApiException extends Exception {}
 

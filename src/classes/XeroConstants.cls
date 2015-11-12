@@ -1,7 +1,6 @@
 /**
-* Author:       Ben Edwards
-* Date:         2015-11-10
-* Description:  Class to store constants used for the Xero APIs
+* @author       Ben Edwards (ben@benedwards.co.nz)
+* @description  Class to store constants used for the Xero APIs
 **/
 public class XeroConstants {
 

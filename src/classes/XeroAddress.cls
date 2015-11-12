@@ -1,7 +1,6 @@
 /**
-* Author:       Ben Edwards
-* Date:         2015-11-10
-* Description:  Wrapper class to hold details for a Xero Address
+* @author       Ben Edwards (ben@benedwards.co.nz)
+* @description  Wrapper class to hold details for a Xero Address
 **/
 public class XeroAddress {
 	
