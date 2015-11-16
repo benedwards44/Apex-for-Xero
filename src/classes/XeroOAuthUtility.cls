@@ -61,8 +61,8 @@ public with sharing class XeroOAuthUtility {
         // Itererate of all paramneters
         for (String key : parameters.keySet()) {
 
-        	// dd each paramaeter to the header string
-            header = header + key + '="'+parameters.get(key)+'", ';
+        	// Add each paramaeter to the header string
+            header = header + key + '="' +parameters.get(key)+ '", ';
         }
 
         // Add the OAuth signature and return.
@@ -80,6 +80,8 @@ public with sharing class XeroOAuthUtility {
     	// Generates a base string to use for encoding.
     	// Eg. GET&https%3A%2F%2Fapi.xero.com%2Fapi.xro%2F2.0%2FInvoices&oauth_consumer_key%3D7YBW ...
         String baseString = createBaseString(req, parameters);
+
+        system.debug('### ' + baseString);
 
         // Encrypt the string using RSA signature, the baseString as the input and the decoded privatekey
         Blob signatureBlob = Crypto.sign('RSA-SHA1', Blob.valueOf(baseString), EncodingUtil.base64Decode(privateKey));
@@ -101,10 +103,21 @@ public with sharing class XeroOAuthUtility {
         Map<String,String> p = parameters.clone();
 
         // If a POST request with a body, take parameters and add to the parameter map
-        if (req.getMethod().equalsIgnoreCase('post') && req.getBody()!= null && req.getHeader('Content-Type') == 'application/x-www-form-urlencoded') {
+        if (req.getMethod().equalsIgnoreCase('post') && req.getBody() != null) {
             
-            // Add all parameters to parameter map
-            p.putAll(getUrlParams(req.getBody()));
+            // For form-urlencoded bodies, take the parameters and add to the map
+            if (req.getHeader('Content-Type') == 'application/x-www-form-urlencoded') {
+
+                // Add all parameters to parameter map
+                p.putAll(getUrlParams(req.getBody()));
+            }
+            // Otherwise it's JSON or XML most likely
+            else {
+
+                // Add a parameter for the URL encoded version of the body
+                p.put('xml', EncodingUtil.urlEncode(req.getBody(), 'UTF-8'));
+            }
+            
         }
 
         // Get the Endpoint from the request 
@@ -131,14 +144,14 @@ public with sharing class XeroOAuthUtility {
         keys.sort();
 
         // Add parameters back into string seperated with = and & values
-        String s = keys.get(0)+'='+p.get(keys.get(0));
+        String urlString = keys.get(0) + '=' + p.get(keys.get(0));
         for (Integer i = 1; i < keys.size(); i++) {
 
-            s = s + '&' + keys.get(i)+'='+p.get(keys.get(i));
+            urlString = urlString + '&' + keys.get(i) + '=' + p.get(keys.get(i));
         }
 
         // Return the concatenated string required for OAauth 1.0
-        return req.getMethod().toUpperCase()+ '&' + EncodingUtil.urlEncode(host, 'UTF-8') + '&' + EncodingUtil.urlEncode(s, 'UTF-8');
+        return req.getMethod().toUpperCase() + '&' + EncodingUtil.urlEncode(host, 'UTF-8') + '&' + EncodingUtil.urlEncode(urlString, 'UTF-8');
     }
 
     /**
@@ -161,7 +174,8 @@ public with sharing class XeroOAuthUtility {
 
 	        List<String> kv = s.split('=');
 
-	        if (kv.size()>1) {
+	        if (kv.size() > 1) {
+
 	            // RFC 5849 section 3.4.1.3.1 and 3.4.1.3.2 specify that parameter names 
 	            // and values are decoded then encoded before being sorted and concatenated
 	            // Section 3.6 specifies that space must be encoded as %20 and not +

@@ -14,7 +14,7 @@ public with sharing class XeroAccountingApi {
 		List<XeroContact> xeroContacts = new List<XeroContact>();
 
 		// Execute the callout to the Contacts GET resource
-		HttpResponse response = XeroCalloutUtility.executeCallout('Contacts');
+		HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Contacts', null);
 
 		// If successful response
 		if (response.getStatusCode() == 200) {
@@ -35,6 +35,54 @@ public with sharing class XeroAccountingApi {
 		}
 
 		return xeroContacts;
+	}
+
+	/**
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Method to create a Contact in Xero. 
+	* 	@return Returns the Contact Id of the Contact created in Xero
+	**/
+	public static String createContact (String contactBody) {
+
+		// Execute the callout to the Contacts GET resource
+		HttpResponse response = XeroCalloutUtility.executeCallout('PUT', 'Contacts', contactBody);
+
+		// If successful response
+		if (response.getStatusCode() == 200) {
+
+			return 'Successfully created contact';
+		}
+		else {
+
+			// Raise error
+			throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
+		
+			return null;
+		}
+	}
+
+	/**
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Method to create an invoice in Xero. 
+	* 	@return Returns the invoice Id of the invoice created in Xero
+	**/
+	public static String createInvoice (String invoiceBody) {
+
+		// Execute the callout to the Contacts GET resource
+		HttpResponse response = XeroCalloutUtility.executeCallout('PUT', 'Invoices', invoiceBody);
+
+		// If successful response
+		if (response.getStatusCode() == 200) {
+
+			return 'Successfully created invoice';
+		}
+		else {
+
+			// Raise error
+			throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
+		
+			return null;
+		}
 	}
 
 	/**
