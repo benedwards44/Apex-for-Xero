@@ -81,8 +81,6 @@ public with sharing class XeroOAuthUtility {
     	// Eg. GET&https%3A%2F%2Fapi.xero.com%2Fapi.xro%2F2.0%2FInvoices&oauth_consumer_key%3D7YBW ...
         String baseString = createBaseString(req, parameters);
 
-        system.debug('### ' + baseString);
-
         // Encrypt the string using RSA signature, the baseString as the input and the decoded privatekey
         Blob signatureBlob = Crypto.sign('RSA-SHA1', Blob.valueOf(baseString), EncodingUtil.base64Decode(privateKey));
         
