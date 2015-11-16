@@ -34,6 +34,14 @@ XeroAccountingApi.getContacts();
 ```
 And a list of type XeroContact is returned.
 
+#### Create Contact
+
+This method creates a contact for the given XML:
+```
+XeroAccountingApi.createContact('<Contact><Name>ABC Limited 2</Name></Contact>');
+```
+
+
 ## Contributing
 
 Feel free to fork this repo and use as you wish. I'd welcome anyone to add additional methods and add to this project, I will do the same as I go.
