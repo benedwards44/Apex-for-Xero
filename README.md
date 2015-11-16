@@ -24,7 +24,7 @@ openssl pkcs8 -topk8 -nocrypt -in xero_privatekey.pem -out xero_privatekey.pcks8
 
 ## Usage
 
-Once the above steps are complete, you can now access the example methods to access the Xero API resources. There is currently one simple getContacts() method setup.
+Once the above steps are complete, you can now access the example methods to access the Xero API resources. There are currently only a few pre-built methods set up to start using. Please use these as a base and extend as necessary.
 
 #### Get Contacts
 
@@ -40,6 +40,22 @@ This method creates a contact for the given XML:
 ```
 XeroAccountingApi.createContact('<Contact><Name>ABC Limited 2</Name></Contact>');
 ```
+You can view example XML requests [here](http://developer.xero.com/documentation/api/contacts/)
+
+#### Get Invoices
+
+This method queries all invoices in your Xero org. To execute, run:
+```
+XeroAccountingApi.getInvoices();
+```
+
+#### Create Invoice
+
+This method creates an invoice for the given XML:
+```
+XeroAccountingApi.createInvoice('<<< Invoice XML >>>');
+```
+You can view example XML requests [here](http://developer.xero.com/documentation/api/invoices/)
 
 
 ## Contributing
