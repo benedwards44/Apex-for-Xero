@@ -127,8 +127,25 @@ public class XeroXmlUtility {
     **/
     private static void processJsonArray (JSONParser parser, Dom.XmlNode parentElement) {
 
+    	// Control whether the array is the top level, or an array
+    	// within the JSON
+    	Boolean topLevelArray = false;
+
+    	// The name of the array
+    	String parentArrayName = parser.getCurrentName();
+
+    	// If the array has no name, it's probabaly top-level.
+    	if (String.isBlank(parentArrayName)) {
+
+   			// Create an Array name
+    		parentArrayName = parentElement.getName().substring(0, parentElement.getName().length() - 1);
+
+    		// This array has no name, so must be top level
+    		topLevelArray = true;
+    	}
+
     	// Create child element for the object
-		Dom.XmlNode arrayElement = parentElement.addChildElement(removeX(parser.getCurrentName()), null, null);
+		Dom.XmlNode arrayElement = parentElement.addChildElement(removeX(parentArrayName), null, null);
 
 		// Iterate over elements in the array
 		while (parser.nextToken() != null) {
@@ -142,25 +159,44 @@ public class XeroXmlUtility {
 			// If it's the start of the end
 			if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
 
-				// Take the name of the parent array
-				String arrayName = arrayElement.getName();
+				// Only run if the current token isn't the top level array
+				if (!topLevelArray) {
 
-				// Remove the last character (not the most accurate way to do it)
-				String singularNameOfArray = arrayName.substring(0, arrayName.length() - 1);
+					// Take the name of the object
+					String arrayName = parser.getCurrentName();
 
-				// Process the JSON object
-				processJsonObject (parser, arrayElement, singularNameOfArray);
+					if (String.isBlank(arrayName)) {
+
+						// Take the name of the parent array
+						arrayName = arrayElement.getName();
+
+						// Remove the last character (not the most accurate way to do it)
+						arrayName = arrayName.substring(0, arrayName.length() - 1);
+					}
+
+					// Process the JSON object
+					processJsonObject (parser, arrayElement, arrayName);
+				}
 			}
 
 			// If the element is for an array of child elements
 			if (parser.getCurrentToken() == JSONToken.START_ARRAY) {
 
 				// Move to next token
-				parser.nextToken();
+				//parser.nextToken();
 
 				// Process the array
 				processJsonArray (parser, parentElement);
 			}
+
+			if (acceptedValues.contains(String.valueOf(parser.getCurrentToken()))) {
+
+				// Add value element to the XML
+				addValueElement (parser, arrayElement);
+			}
+
+			// Set back to false. This is only applicable once
+			topLevelArray = false;
 		}
     }
 
@@ -184,7 +220,18 @@ public class XeroXmlUtility {
     *   @return XML String
     **/
 	private static String removeX(String value) {
-		return value.replace('_x','');
+
+		// If the value is not null or empty string
+		if (String.isNotBlank(value)) {
+
+			// Remove the _x
+			return value.replace('_x','');
+		}
+		else {
+
+			// Otherwise just return the normal value
+			return value;
+		}
 	}
 
 	/**
