@@ -38,7 +38,12 @@ And a list of type XeroContact is returned.
 
 This method creates a contact for the given XML:
 ```
-XeroAccountingApi.createContact('<Contact><Name>ABC Limited 2</Name></Contact>');
+// Create a Contact
+XeroContact newContact = new XeroContact();
+newContact.Name = 'ABC Limited 1';
+
+// Send Contact to Xero
+XeroAccountingApi.createContact(XeroXmlUtility.serialize(newContact, 'Contact'));
 ```
 You can view example XML requests [here](http://developer.xero.com/documentation/api/contacts/)
 
@@ -53,7 +58,12 @@ XeroAccountingApi.getInvoices();
 
 This method creates an invoice for the given XML:
 ```
-XeroAccountingApi.createInvoice('<<< Invoice XML >>>');
+XeroInvoice newInvoice = new XeroInvoice();
+newInvoice.Date_x = system.today();
+... // Add additional Invoice details based on the XeroInvoice wrapper
+
+// Send Invoice to Xero
+XeroAccountingApi.createInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
 ```
 You can view example XML requests [here](http://developer.xero.com/documentation/api/invoices/)
 
