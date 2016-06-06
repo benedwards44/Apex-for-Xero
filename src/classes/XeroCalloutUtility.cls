@@ -18,7 +18,7 @@ public with sharing class XeroCalloutUtility {
 				try {
 
 					// Query for Xero settings
-					xeroSettings = [SELECT Consumer_Key__c, Consumer_Secret__c, Endpoint__c, Private_Key__c FROM Xero_Setting__c];
+					xeroSettings = [SELECT Consumer_Key__c, Consumer_Secret__c, Endpoint__c FROM Xero_Setting__c];
 				}
 				catch (Exception ex) {
 
@@ -54,7 +54,7 @@ public with sharing class XeroCalloutUtility {
 		}
 
 		// Sign the request based on OAuth 1.0a
-		request = XeroOAuthUtility.signRequest(request, xeroSettings.Consumer_Key__c, xeroSettings.Private_Key__c);
+		request = XeroOAuthUtility.signRequest(request, xeroSettings.Consumer_Key__c);
 
 		// Execute callout and return
 		return new Http().send(request);
