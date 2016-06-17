@@ -273,7 +273,6 @@ public class XeroAccountingApiTest {
 		insert new Xero_Settings__c(
 			SetupOwnerId = Userinfo.getOrganizationId(),
 			Consumer_Key__c = '123456789',
-			Consumer_Secret__c = '123456789',
 			Endpoint__c = 'https://api.xero-test.com?param1=value1&param2=value2/'
 		);
 
