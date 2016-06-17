@@ -235,7 +235,7 @@ public class XeroAccountingApiTest {
 	static void getXeroSettingsError() {
 
 		// Delete the Xero Settings created
-		delete [Select Id From Xero_Setting__c];
+		delete [Select Id From Xero_Settings__c];
 
 		// Assert no Xero Settings found in Utility
 		system.assertEquals(
@@ -270,7 +270,8 @@ public class XeroAccountingApiTest {
 	static void setupTestData () {
 
 		// Create a test Xero Setting record
-		insert new Xero_Setting__c(
+		insert new Xero_Settings__c(
+			SetupOwnerId = Userinfo.getOrganizationId(),
 			Consumer_Key__c = '123456789',
 			Consumer_Secret__c = '123456789',
 			Endpoint__c = 'https://api.xero-test.com?param1=value1&param2=value2/'

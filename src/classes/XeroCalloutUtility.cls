@@ -9,22 +9,13 @@ public with sharing class XeroCalloutUtility {
 	*	@description Query the custom object for the Xero Account Settings
 	* 	@return Returns a single Xero_Setting__c record
 	**/
-	public static Xero_Setting__c xeroSettings {
+	public static Xero_Settings__c xeroSettings {
 
 		get {
 
 			if (xeroSettings == null) {
 				
-				try {
-
-					// Query for Xero settings
-					xeroSettings = [SELECT Consumer_Key__c, Consumer_Secret__c, Endpoint__c FROM Xero_Setting__c];
-				}
-				catch (Exception ex) {
-
-					// If no setting found, return empty settings
-					xeroSettings = new Xero_Setting__c();
-				}
+				xeroSettings = Xero_Settings__c.getInstance();
 			}
 			return xeroSettings;
 		}

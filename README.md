@@ -17,7 +17,7 @@ http://developer.xero.com/documentation/api/api-overview/
 	- Click Download Certificate. This is the certificate you upload into Xero.
 2. [Create your application](http://developer.xero.com/documentation/getting-started/getting-started-guide/) in Xero and upload your public key .cer file generated above 
 3. Deploy this package to a Salesforce environment ([Deploy to Org](https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero))
-4. Access the Xero Settings tab and create a new Xero Settings record. Enter your Xero credentials (from your application created in Xero)
+4. Access the Xero Settings Custom Setting (Setup -> Develop -> Custom Settings -> Click Manage on Xero Settings) and enter your Xero credentials (from your application created in Xero)
 5. You can now access Xero API resources via Apex. Eg... `XeroAccountingApi.getContacts();`
 
 ## Usage
