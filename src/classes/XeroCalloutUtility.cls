@@ -36,12 +36,18 @@ public with sharing class XeroCalloutUtility {
 		// Set request parameters
 		request.setMethod(method);
 		request.setEndpoint(xeroSettings.Endpoint__c + resourceName);
+
+		// Accept a JSON response from the call
 		request.setHeader('Accept', 'application/json');
 
 		// If the callout includes a body (POST and PUT requests)
 		if (String.isNotBlank(requestBody)) {
 
+			// Set the body to the callout
 			request.setBody(requestBody);
+
+			// Set the content to XML
+			request.setHeader('Content-Type', 'text/xml');
 		}
 
 		// Sign the request based on OAuth 1.0a

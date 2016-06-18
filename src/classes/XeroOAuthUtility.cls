@@ -65,6 +65,8 @@ public with sharing class XeroOAuthUtility {
 			header = header + key + '="' +parameters.get(key)+ '", ';
 		}
 
+		system.debug('### ' + signature);
+
 		// Add the OAuth signature and return.
 		// Note: The signature needs to be URL encoded, as if it includes / and + these should be encoded correctly
 		return header + 'oauth_signature="' + EncodingUtil.urlEncode(signature, 'UTF-8') + '"';
@@ -100,22 +102,13 @@ public with sharing class XeroOAuthUtility {
 		// Take a copy of the passed parameters
 		Map<String,String> p = parameters.clone();
 
-		// If a POST request with a body, take parameters and add to the parameter map
-		if (req.getMethod().equalsIgnoreCase('post') && req.getBody() != null) {
+		// If a POST request with a body, take parameters and add to the parameter map (only for url-form requests)
+		if (req.getMethod().equalsIgnoreCase('post') && req.getBody() != null &&
+			req.getHeader('Content-Type') == 'application/x-www-form-urlencoded'
+		) {
 			
-			// For form-urlencoded bodies, take the parameters and add to the map
-			if (req.getHeader('Content-Type') == 'application/x-www-form-urlencoded') {
-
-				// Add all parameters to parameter map
-				p.putAll(getUrlParams(req.getBody()));
-			}
-			// Otherwise it's JSON or XML most likely
-			else {
-
-				// Add a parameter for the URL encoded version of the body
-				p.put('xml', EncodingUtil.urlEncode(req.getBody(), 'UTF-8'));
-			}
-			
+			// Add all parameters to parameter map
+			p.putAll(getUrlParams(req.getBody()));
 		}
 
 		// Get the Endpoint from the request 
