@@ -33,6 +33,33 @@ public with sharing class XeroAccountingApi {
 
     /**
     *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Method to return ALL contacts for your Xero environment
+    *   @return List of Xero Contact wrapper classes
+    **/
+    public static XeroContact getContact (String xeroContactId) {
+
+        XeroContact xeroContact = new XeroContact();
+
+        // Execute the callout to the Contacts resource
+        HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Contacts/' + xeroContactId, null);
+
+        // If successful response
+        if (response.getStatusCode() == 200) {
+
+            // Use the parser to convert the response into Xero objects
+            xeroContact = XeroCalloutResponseParser.parseContacts(response.getBody())[0];
+        }
+        else {
+
+            // Raise error
+            throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
+        }
+
+        return xeroContact;
+    }
+
+    /**
+    *   @author Ben Edwards (ben@benedwards.co.nz)
     *   @description Method to create a Contact in Xero. 
     *   @return Returns the Contact Id of the Contact created in Xero
     **/

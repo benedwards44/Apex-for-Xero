@@ -11,6 +11,7 @@ public class XeroContact {
 	public String LastName;
 	public String EmailAddress;
 	public String BankAccountDetails;
+	public String SkypeUserName;
 	public XeroAddress[] Addresses;
 	public XeroPhone[] Phones;
 	public String UpdatedDateUTC;
@@ -18,14 +19,45 @@ public class XeroContact {
 	public Boolean IsSupplier;
 	public Boolean IsCustomer;
 	public String DefaultCurrency;
+	public Balances Balances;
 	public ContactPersons[] ContactPersons;
 	public Boolean HasAttachments;
+	public Attachments[] Attachments;
 	public Boolean HasValidationErrors;
 
-	class ContactGroups {
+	public class ContactGroups {
 	}
 
-	class ContactPersons {
+	public class ContactPersons {
+
+		public String FirstName;
+		public String LastName;
+		public String EmailAddress;
+		public Boolean IncludeInEmails;
 	}
 
+	public class Balances {
+
+		public AccountsPayable AccountsPayable;
+		public AccountsReceivable AccountsReceivable;
+	}
+
+	public class AccountsPayable {
+		public Decimal Overdue;	//0
+		public Decimal Outstanding;	//0
+	}
+
+	public class AccountsReceivable {
+		public Decimal Overdue;	//2625
+		public Decimal Outstanding;	//2625
+	}
+
+	public class Attachments {
+
+		public String AttachmentID;
+		public String FileName;
+		public String Url;
+		public String MimeType;
+		public Integer ContentLength;
+	}
 }

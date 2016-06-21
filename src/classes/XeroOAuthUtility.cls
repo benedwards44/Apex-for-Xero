@@ -64,9 +64,7 @@ public with sharing class XeroOAuthUtility {
 			// Add each paramaeter to the header string
 			header = header + key + '="' +parameters.get(key)+ '", ';
 		}
-
-		system.debug('### ' + signature);
-
+		
 		// Add the OAuth signature and return.
 		// Note: The signature needs to be URL encoded, as if it includes / and + these should be encoded correctly
 		return header + 'oauth_signature="' + EncodingUtil.urlEncode(signature, 'UTF-8') + '"';
