@@ -132,8 +132,6 @@ public class XeroAccountingApiTest {
 
 		Test.stopTest();
 
-		system.debug('### ' + xeroInvoices);
-
 		// Assert that a contact exists
 		system.assertEquals(
 			1,
@@ -170,6 +168,31 @@ public class XeroAccountingApiTest {
 		}
 
 		Test.stopTest();
+	}
+
+	/**
+	* 	@author Ben Edwards (ben@benedwards.co.nz)
+	*	@description Test a successful callout of the getInvoicesForContact() method
+	**/
+	@isTest
+	static void getInvoicesForContactSuccess() {
+
+		// Set the Mock Class for the callout
+		Test.setMock(HttpCalloutMock.class, getStaticMock(200, 'XeroInvoicesMock'));
+
+		Test.startTest();
+
+		// Execute the callout
+		List<XeroInvoice> xeroInvoices = XeroAccountingApi.getInvoicesForContact('ABC123');
+
+		Test.stopTest();
+
+		// Assert that a contact exists
+		system.assertEquals(
+			1,
+			xeroInvoices.size(),
+			'There should be one invoice returned from the callout'
+		);
 	}
 
 	/**

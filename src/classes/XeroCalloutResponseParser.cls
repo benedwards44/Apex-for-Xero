@@ -15,7 +15,7 @@ public with sharing class XeroCalloutResponseParser {
         String jsonSerialized = generateJsonStringForParsing (jsonBody, 'Contacts');
         
         // And finally parse the now re-serialized contact list back into Contact objects
-        return (List<XeroContact>) JSON.deserializeStrict(jsonSerialized, List<XeroContact>.class);
+        return (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
     }
 
     /**
@@ -29,7 +29,7 @@ public with sharing class XeroCalloutResponseParser {
         String jsonSerialized = generateJsonStringForParsing (jsonBody, 'Invoices');
 
         // And finally parse the now re-serialized contact list back into Contact objects
-        return (List<XeroInvoice>) JSON.deserializeStrict(jsonSerialized, List<XeroInvoice>.class);
+        return (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroInvoice>.class);
     }
 
     /**

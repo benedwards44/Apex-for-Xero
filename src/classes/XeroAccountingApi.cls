@@ -88,20 +88,47 @@ public with sharing class XeroAccountingApi {
 
     /**
     *   @author Ben Edwards (ben@benedwards.co.nz)
-    *   @description Method to return ALL contacts for your Xero environment
-    *   @return List of Xero Contact wrapper classes
+    *   @description Method to return ALL invoices for your Xero environment
+    *   @return List of Xero Invoice wrapper classes
     **/
     public static List<XeroInvoice> getInvoices () {
 
         List<XeroInvoice> xeroInvoices = new List<XeroInvoice>();
 
-        // Execute the callout to the Contacts resource
+        // Execute the callout to the Invoice resource
         HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Invoices', null);
 
         // If successful response
         if (response.getStatusCode() == 200) {
 
         	// Use the parser to convert the response into Xero objects
+            xeroInvoices = XeroCalloutResponseParser.parseInvoices(response.getBody());
+        }
+        else {
+
+            // Raise error
+            throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
+        }
+
+        return xeroInvoices;
+    }
+
+    /**
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Method to return all invoices for a given Contact Id
+    *   @return List of Xero Invoice wrapper classes
+    **/
+    public static List<XeroInvoice> getInvoicesForContact (String xeroContactId) {
+
+        List<XeroInvoice> xeroInvoices = new List<XeroInvoice>();
+
+        // Execute the callout to the Invoice resource with the Contact ID filter
+        HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Invoices?where=Contact.ContactID%20%3D%20Guid%28%22' + xeroContactId + '%22%29', null);
+
+        // If successful response
+        if (response.getStatusCode() == 200) {
+
+            // Use the parser to convert the response into Xero objects
             xeroInvoices = XeroCalloutResponseParser.parseInvoices(response.getBody());
         }
         else {
