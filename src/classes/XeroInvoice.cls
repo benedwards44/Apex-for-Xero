@@ -55,14 +55,15 @@ public class XeroInvoice {
 	class cls_ContactPersons {
 	}
 	class LineItem {
+		public String ItemCode;
 		public String Description;	//Consulting services as agreed
-		public Integer UnitAmount;	//120
+		public Decimal UnitAmount;	//120
 		public String TaxType;	//NONE
-		public Integer TaxAmount;	//0
-		public Integer LineAmount;	//600
+		public Decimal TaxAmount;	//0
+		public Decimal LineAmount;	//600
 		public String AccountCode;	//200
 		public cls_Tracking[] Tracking;
-		public Integer Quantity;	//5
+		public Decimal Quantity;	//5
 		public String LineItemID;	//0d129d0d-4b3a-4567-afc5-0453f3457175
 		public cls_ValidationErrors[] ValidationErrors;
 	}

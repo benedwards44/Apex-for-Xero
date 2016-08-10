@@ -115,6 +115,33 @@ public with sharing class XeroAccountingApi {
 
     /**
     *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Method to return a single invoice for your Xero environment for a given Xero Invoice
+    *   @return Single Xero Invoice
+    **/
+    public static XeroInvoice getInvoice (String invoiceId) {
+
+        XeroInvoice xeroInvoice = new XeroInvoice();
+
+        // Execute the callout to the Invoice resource
+        HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Invoices/' + invoiceId, null);
+
+        // If successful response
+        if (response.getStatusCode() == 200) {
+
+            // Use the parser to convert the response into Xero objects
+            xeroInvoice = XeroCalloutResponseParser.parseInvoices(response.getBody())[0];
+        }
+        else {
+
+            // Raise error
+            throw new XeroAccountingApiException(response.getStatusCode() + ': ' + response.getBody());
+        }
+
+        return xeroInvoice;
+    }
+
+    /**
+    *   @author Ben Edwards (ben@benedwards.co.nz)
     *   @description Method to return all invoices for a given Contact Id
     *   @return List of Xero Invoice wrapper classes
     **/
