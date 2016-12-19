@@ -69,7 +69,7 @@ public with sharing class XeroAccountingApi {
         XeroContact createdContact;
 
         // Execute the callout to the Contacts resource
-        HttpResponse response = XeroCalloutUtility.executeCallout('PUT', 'Contacts', contactBody);
+        HttpResponse response = XeroCalloutUtility.executeCallout('POST', 'Contacts', contactBody);
 
         // If successful response
         if (response.getStatusCode() == 200) {
@@ -178,7 +178,7 @@ public with sharing class XeroAccountingApi {
         XeroInvoice createdInvoice;
 
         // Execute the callout to the Contacts GET resource
-        HttpResponse response = XeroCalloutUtility.executeCallout('PUT', 'Invoices', invoiceBody);
+        HttpResponse response = XeroCalloutUtility.executeCallout('POST', 'Invoices', invoiceBody);
 
         // If successful response
         if (response.getStatusCode() == 200) {
