@@ -19,8 +19,8 @@ public class XeroInvoice {
 	public Boolean HasErrors;
 	public Boolean IsDiscounted;
 	public XeroContact Contact;
-	public String DateString;	//2015-12-01T00:00:00
-	public String DueDateString;	//2015-12-31T00:00:00
+	public String Date;	//2015-12-01T00:00:00
+	public String DueDate;	//2015-12-31T00:00:00
 	public String Status;	//DRAFT
 	public String LineAmountTypes;	//Exclusive
 	public LineItem[] LineItems;
