@@ -4,6 +4,9 @@
 **/
 public with sharing class XeroAccountingApi {
 
+    // Ordering ENUM
+    public enum SortOrder {ASCENDING, DESCENDING}
+
     /**
     *   @author Ben Edwards (ben@benedwards.co.nz)
     *   @description Method to return ALL contacts for your Xero environment
@@ -19,7 +22,7 @@ public with sharing class XeroAccountingApi {
         // If successful response
         if (response.getStatusCode() == 200) {
 
-        	// Use the parser to convert the response into Xero objects
+            // Use the parser to convert the response into Xero objects
             xeroContacts = XeroCalloutResponseParser.parseContacts(response.getBody());
         }
         else {
@@ -74,7 +77,7 @@ public with sharing class XeroAccountingApi {
         // If successful response
         if (response.getStatusCode() == 200) {
 
-        	// Use the parser to convert the response into Xero objects
+            // Use the parser to convert the response into Xero objects
             createdContact = XeroCalloutResponseParser.parseContacts(response.getBody())[0];
         }
         else {
@@ -93,15 +96,40 @@ public with sharing class XeroAccountingApi {
     **/
     public static List<XeroInvoice> getInvoices () {
 
+        return getInvoices(null, null);
+    }
+
+    /**
+    *   @author Ben Edwards (ben@benedwards.co.nz)
+    *   @description Method to return ALL invoices for your Xero environment
+    *   @return List of Xero Invoice wrapper classes
+    **/
+    public static List<XeroInvoice> getInvoices (String orderBy, XeroAccountingApi.SortOrder sortOrder) {
+
         List<XeroInvoice> xeroInvoices = new List<XeroInvoice>();
 
+        String endpoint = 'Invoices';
+
+        // Add any ordering parameters
+        if (String.isNotBlank(orderBy)) {
+
+            endpoint += '?order=' + orderBy;
+        }
+
+        // Set a sort order if exists
+        // Only bothering with descending, as ascending is done by default
+        if (sortOrder != null && sortOrder == XeroAccountingApi.SortOrder.DESCENDING) {
+
+            endpoint += '%20DESC';
+        }
+
         // Execute the callout to the Invoice resource
-        HttpResponse response = XeroCalloutUtility.executeCallout('GET', 'Invoices', null);
+        HttpResponse response = XeroCalloutUtility.executeCallout('GET', endpoint, null);
 
         // If successful response
         if (response.getStatusCode() == 200) {
 
-        	// Use the parser to convert the response into Xero objects
+            // Use the parser to convert the response into Xero objects
             xeroInvoices = XeroCalloutResponseParser.parseInvoices(response.getBody());
         }
         else {
@@ -111,6 +139,7 @@ public with sharing class XeroAccountingApi {
         }
 
         return xeroInvoices;
+
     }
 
     /**
@@ -174,7 +203,7 @@ public with sharing class XeroAccountingApi {
     **/
     public static XeroInvoice createInvoice (String invoiceBody) {
 
-    	// The created invoice to return
+        // The created invoice to return
         XeroInvoice createdInvoice;
 
         // Execute the callout to the Contacts GET resource
@@ -183,7 +212,7 @@ public with sharing class XeroAccountingApi {
         // If successful response
         if (response.getStatusCode() == 200) {
 
-        	// Use the parser to convert the response into Xero objects
+            // Use the parser to convert the response into Xero objects
             createdInvoice = XeroCalloutResponseParser.parseInvoices(response.getBody())[0];
         }
         else {
