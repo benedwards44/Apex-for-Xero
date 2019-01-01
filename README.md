@@ -5,6 +5,8 @@
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
+(deploy from Github from https://andyinthecloud.com/category/githubsfdeploy/)
+
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
 These classes are set up to use the [Private Application](http://developer.xero.com/documentation/getting-started/private-applications/) type.
