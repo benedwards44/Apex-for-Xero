@@ -1,5 +1,10 @@
 # Apex-for-Xero
 
+<a href="https://githubsfdeploy.herokuapp.com">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
 These classes are set up to use the [Private Application](http://developer.xero.com/documentation/getting-started/private-applications/) type.
