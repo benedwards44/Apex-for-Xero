@@ -7,6 +7,16 @@ public with sharing class XeroAccountingApi {
     // Ordering ENUM
     public enum SortOrder {ASCENDING, DESCENDING}
 
+    
+    public static List<XeroAccount> parseAccounts(String jsonBody) {
+
+        // Re-serialize just the Accounts portion back to JSON
+        String jsonSerialized = generateJsonStringForParsing (jsonBody, 'Accounts');
+        
+        // And finally parse the now re-serialized contact list back into Account objects
+        return (List<XeroAccount>) JSON.deserialize(jsonSerialized, List<XeroAccount>.class);
+    }
+    
     /**
     *   @author Ben Edwards (ben@benedwards.co.nz)
     *   @description Method to return ALL contacts for your Xero environment
