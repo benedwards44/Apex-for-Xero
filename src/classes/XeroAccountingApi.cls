@@ -11,7 +11,7 @@ public with sharing class XeroAccountingApi {
     public static List<XeroAccount> parseAccounts(String jsonBody) {
 
         // Re-serialize just the Accounts portion back to JSON
-        String jsonSerialized = generateJsonStringForParsing (jsonBody, 'Accounts');
+        String jsonSerialized = XeroCalloutResponseParser.generateJsonStringForParsing (jsonBody, 'Accounts');
         
         // And finally parse the now re-serialized contact list back into Account objects
         return (List<XeroAccount>) JSON.deserialize(jsonSerialized, List<XeroAccount>.class);
