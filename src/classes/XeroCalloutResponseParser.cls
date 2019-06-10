@@ -37,7 +37,7 @@ public with sharing class XeroCalloutResponseParser {
     *   @description Method to take the full JSON response and just return the object portion. Eg. The Contact and Invoice portion only
     *   @return JSON String with only specific object data
     **/
-    private static String generateJsonStringForParsing (String jsonBody, String objectName) {
+    public static String generateJsonStringForParsing (String jsonBody, String objectName) {
 
     	// Parse the JSON response
         Map<String, Object> jsonResponseMap = (Map<String, Object>) JSON.deserializeUntyped(jsonBody);
