@@ -18,14 +18,41 @@ http://developer.xero.com/documentation/api/api-overview/
 
 ## Quick Setup
 
-1. Create your private and public keys
-	- Setup -> Security Controls -> Certification and Key Management
-	- Create a Self-Signed Certification. Give it the name of XeroCertificate
-	- Click Download Certificate. This is the certificate you upload into Xero.
-2. [Create your application](http://developer.xero.com/documentation/getting-started/getting-started-guide/) in Xero and upload your public key .cer file generated above 
-3. Deploy this package to a Salesforce environment ([Deploy to Org](https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero))
-4. Access the Xero Settings Custom Setting (Setup -> Develop -> Custom Settings -> Click Manage on Xero Settings) and enter your Xero credentials (from your application created in Xero)
-5. You can now access Xero API resources via Apex. Eg... `XeroAccountingApi.getContacts();`
+1. Create an Auth. Provider within your Salesforce Org:
+    1. Setup -> Security Controls -> Auth. Providers -> New
+    2. Provider Type = "Open ID Connect"
+    3. Name = "Xero"
+    4. Consumer Key = "ABC" (this is temporary, we will update this with the Xero Consumer Key once we have it)
+    5. Consumer Secret = "ABC" (as above)
+    7. Authorize Endpoint URL = "https://login.xero.com/identity/connect/authorize"
+    8. Token Endpoint URL = "https://login.xero.com/identity/connect/token"
+    9. Default Scopes: "openid profile email offline_access accounting.transactions accounting.contacts" (you can see all scopes here https://developer.xero.com/documentation/oauth2/scopes)
+    
+    Leave everything as is. Click save and then copy the generated "Callback URL". Eg. https://login.salesforce.com/services/authcallback/00D2v000003QVUrCAO/Xero
+
+2. Create the Xero App:
+    1. https://app.xero.com/ -> My Apps -> New app
+    2. App name = Your unique name
+    3. Company or application URL = Can be anything, suggest either your Salesforce Org URL or your company website
+    4. OAuth 2.0 redirect URI = Paste in the "Callback URL" copied from step 1 above
+
+3. Create the Salesforce Named Credential:
+    1. Setup -> Named Credential -> New Named Credential
+    2. Label = "Xero"
+    3. Name = "Xero"
+    4. URL = "https://api.xero.com/api.xro/2.0"
+    5. Identity Type = "Named Principal"
+    6. Authentication Protocol = "OAuth 2.0"
+    7. Authentication Provider = "Xero" (the provider created in step 1)
+    8. Start Authentication Flow on Save = Checked (this will trigger the OAuth process to Xero)
+
+4. Deploy this package to a Salesforce environment ([Deploy to Org](https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero))
+5. You now need to retrieve the Xero Tenant ID and store in the Custom Label:
+    1. Run the Apex method `XeroAPI.getXeroTenantId();`
+    2. Copy the returned value
+    3. Update to the label:
+        Setup -> Create -> Custom Labels -> Xero_Tenant_Id -> Edit -> Paste in value from above
+6. You can now access Xero API resources via Apex. Eg... `XeroAPI.getContacts();`
 
 ## Usage
 
@@ -35,28 +62,24 @@ Once the above steps are complete, you can now access the example methods to acc
 
 This method queries all contacts in your Xero org. To execute, simply run:
 ```
-XeroAccountingApi.getContacts();
+XeroAPI.getContacts();
 ```
 And a list of type XeroContact is returned.
 
 #### Create Contact
 
-This method creates a contact for the given XML:
 ```
-// Create a Contact
-XeroContact newContact = new XeroContact();
-newContact.Name = 'ABC Limited 1';
-
 // Send Contact to Xero
-XeroAccountingApi.createContact(XeroXmlUtility.serialize(newContact, 'Contact'));
+Account myAccount = [SELECT Name, ... FROM Account];
+XeroAPI.sendAccount(myAccount);
 ```
-You can view example XML requests [here](http://developer.xero.com/documentation/api/contacts/)
+You can view example JSON requests [here](http://developer.xero.com/documentation/api/contacts/)
 
 #### Get Invoices
 
 This method queries all invoices in your Xero org. To execute, run:
 ```
-XeroAccountingApi.getInvoices();
+XeroAPI.getInvoices();
 ```
 
 #### Create Invoice
@@ -68,9 +91,9 @@ newInvoice.Date_x = system.today();
 ... // Add additional Invoice details based on the XeroInvoice wrapper
 
 // Send Invoice to Xero
-XeroAccountingApi.createInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
+XeroAPI.sendInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
 ```
-You can view example XML requests [here](http://developer.xero.com/documentation/api/invoices/)
+You can view example JSON requests [here](http://developer.xero.com/documentation/api/invoices/)
 
 
 ## Contributing

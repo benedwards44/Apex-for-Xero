@@ -1,77 +1,96 @@
 /**
-* @author       Ben Edwards (ben@benedwards.co.nz)
-* @description  Wrapper class to hold details for a Xero Invoice
+* @author Ben Edwards (ben@edwards.nz)
+* @date 3rd February 2020
+* @description Wrapper class for serialising and de-serialising Xero Invoices
+*
+* CHANGE LOG
 **/
 public class XeroInvoice {
+    
+    public String Type;	//ACCREC
+	public String InvoiceID;	//94b8a8d6-31fd-4d8c-8791-d1a2a7dfe898
+	public String InvoiceNumber;	//asdsdasd 
+	public String Reference;	//ABC123
+    public XeroContact Contact;
+    public String Date_x;	//2019-08-20T00:00:00
+	public String DueDate;	//2019-08-20T00:00:00
 
-	public String Type {get; set;}	//ACCREC
-	public String InvoiceID {get; set;}	//920cce71-7495-4c93-a2d3-e4cf9b91a781
-	public String InvoiceNumber {get; set;}	//INV-0002
-	public String Reference {get; set;}
-	public Payment[] Payments {get; set;}
-	public CreditNote[] CreditNotes {get; set;}
-	public PrePayment[] Prepayments {get; set;}
-	public Overpayment[] Overpayments {get; set;}
-	public Decimal AmountDue {get; set;}	//600
-	public Decimal AmountPaid {get; set;}	//0
-	public Boolean SentToContact {get; set;}
-	public Decimal CurrencyRate {get; set;}	//1
-	public Boolean HasErrors {get; set;}
-	public Boolean IsDiscounted {get; set;}
-	public XeroContact Contact {get; set;}
-	public String Date_x {get; set;}	//2015-12-01T00:00:00
-	public String DueDate {get; set;}	//2015-12-31T00:00:00
-	public String Status {get; set;}	//DRAFT
-	public String LineAmountTypes {get; set;}	//Exclusive
-	public LineItem[] LineItems {get; set;}
-	public Decimal SubTotal {get; set;}	//600
-	public Decimal TotalTax {get; set;}	//0
-	public Decimal Total {get; set;}	//600
-	public String UpdatedDateUTC {get; set;}	///Date(1447665863507+1300)/
-	public String CurrencyCode {get; set;}	//NZD
-	public cls_Warnings[] Warnings {get; set;}
+	public Boolean SentToContact;
+    public Decimal AmountDue;	//115
+	public Decimal AmountPaid;	//0
+	public Decimal AmountCredited;	//0
+	public Decimal CurrencyRate;	//1
+	public Boolean IsDiscounted;
+	public Boolean HasAttachments;
+	public Boolean HasErrors;
+	
+	public String Status;	//AUTHORISED
+	public String LineAmountTypes;	//Exclusive
+	public Decimal SubTotal;	//100
+	public Decimal TotalTax;	//15
+	public Decimal Total;	//115
+	public String UpdatedDateUTC;	///Date(1566260876040+0000)/
+	public String CurrencyCode;	//NZD
+    public String Url;
+    
+    public List<LineItem> LineItems;
+    public List<Payment> Payments;
+	public List<CreditNote> CreditNotes;
+	public List<PrePayment> Prepayments;
+	public List<OverPayment> Overpayments;
 
-	class Payment {
+    public List<XeroValidationError> ValidationErrors;
+
+	public class Payment {}
+
+	public class CreditNote {}
+
+	public class PrePayment {}
+
+	public class OverPayment {}
+
+	public class LineItem {
+
+        public String LineItemID;	//006fc261-ee0b-4f4c-bb55-c96ca97cdb53
+        public String Description;	//Some Stufff
+        public String AccountCode;	//200
+        public String TaxType;	//OUTPUT2
+		public Decimal UnitAmount;	//100
+		public Decimal TaxAmount;	//15
+		public Decimal LineAmount;	//100
+		public Decimal Quantity;	//1
+        public List<TrackingCategory> Tracking;
+		public List<XeroValidationError> ValidationErrors;
 	}
-	class CreditNote {
-	}
-	class PrePayment {
-	}
-	class Overpayment {
-	}
-	class cls_ContactGroups {
-	}
-	class cls_SalesTrackingCategories {
-	}
-	class cls_PurchasesTrackingCategories {
-	}
-	class cls_PaymentTerms {
-		public cls_Bills Bills {get; set;}
-	}
-	class cls_Bills {
-		public Integer Day {get; set;}	//1
-		public String Type {get; set;}	//OFFOLLOWINGMONTH
-	}
-	class cls_ContactPersons {
-	}
-	class LineItem {
-		public String ItemCode {get; set;}
-		public String Description {get; set;}	//Consulting services as agreed
-		public Decimal UnitAmount {get; set;}	//120
-		public String TaxType {get; set;}	//NONE
-		public Decimal TaxAmount {get; set;}	//0
-		public Decimal LineAmount {get; set;}	//600
-		public String AccountCode {get; set;}	//200
-		public cls_Tracking[] Tracking {get; set;}
-		public Decimal Quantity {get; set;}	//5
-		public String LineItemID {get; set;}	//0d129d0d-4b3a-4567-afc5-0453f3457175
-		public cls_ValidationErrors[] ValidationErrors {get; set;}
-	}
-	class cls_Tracking {
-	}
-	class cls_ValidationErrors {
-	}
-	class cls_Warnings {
+
+    public class TrackingCategory {
+
+        public String Name;
+        public String Option;
+        
+        public TrackingCategory(String name, String option) {
+            this.Name = name;
+            this.Option = option;
+        }
 	}
 	
+	public XeroInvoice(String xeroContactId) {
+
+		// Pass in default values here
+		this.Type = 'ACCREC';
+
+		// Set the parent account
+		this.Contact = new XeroContact(xeroContactId);
+	}
+
+    public String serialize() {
+        
+        // Serialise the full XeroInvoice object into a string
+        String serialized = JSON.serialize(this, true);
+
+        // Replace the _x with the correct format
+        serialized = serialized.replace('"Date_x"', '"Date"');
+
+        return serialized;
+    }
 }

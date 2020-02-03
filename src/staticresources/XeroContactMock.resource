@@ -1,52 +1,44 @@
 {
-  "Id": "016905d6-17c7-44dc-a62d-464f04f21654",
+  "Id": "3a39dfce-0489-4041-a8c4-788e42bb939d",
   "Status": "OK",
-  "ProviderName": "Salesforce",
-  "DateTimeUTC": "\/Date(1447334928614)\/",
+  "ProviderName": "Ben Edwards Xero Limited",
+  "DateTimeUTC": "\/Date(1566967883496)\/",
   "Contacts": [
     {
-      "ContactID": "03226130-e1c5-4b17-86b8-8718035b9135",
+      "ContactID": "10b46b4c-35c1-49c4-a7eb-983ab08ebe1a",
       "ContactStatus": "ACTIVE",
       "Name": "Ben Edwards Ltd",
       "FirstName": "Ben",
       "LastName": "Edwards",
-      "EmailAddress": "ben@benedwards",
+      "EmailAddress": "ben@edwards.nz",
       "BankAccountDetails": "",
       "Addresses": [
         {
           "AddressType": "STREET",
-          "AddressLine1": "1 Address Street",
-          "AddressLine2": "",
-          "AddressLine3": "",
-          "AddressLine4": "",
+          "AddressLine1": "60 Kaipatiki Road",
           "City": "Auckland",
-          "Region": "Auckland",
-          "PostalCode": "12345",
-          "Country": "New Zealand",
-          "AttentionTo": "Ben Edwards Ltd"
+          "Region": "",
+          "PostalCode": "0629",
+          "Country": "New Zealand"
         },
         {
           "AddressType": "POBOX",
-          "AddressLine1": "PO Box 12345",
-          "AddressLine2": "",
-          "AddressLine3": "",
-          "AddressLine4": "",
+          "AddressLine1": "60 Kaipatiki Road",
           "City": "Auckland",
-          "Region": "Auckland",
-          "PostalCode": "12345",
-          "Country": "New Zealand",
-          "AttentionTo": "Ben Edwards Ltd"
+          "Region": "",
+          "PostalCode": "0629",
+          "Country": "New Zealand"
         }
       ],
       "Phones": [
         {
-          "PhoneType": "DDI",
-          "PhoneNumber": "",
+          "PhoneType": "DEFAULT",
+          "PhoneNumber": "444 9066 EXT 931",
           "PhoneAreaCode": "",
           "PhoneCountryCode": ""
         },
         {
-          "PhoneType": "DEFAULT",
+          "PhoneType": "DDI",
           "PhoneNumber": "",
           "PhoneAreaCode": "",
           "PhoneCountryCode": ""
@@ -64,14 +56,23 @@
           "PhoneCountryCode": ""
         }
       ],
-      "UpdatedDateUTC": "\/Date(1447119938773+1300)\/",
+      "UpdatedDateUTC": "\/Date(1566263118837+0000)\/",
       "ContactGroups": [],
       "IsSupplier": false,
-      "IsCustomer": false,
-      "DefaultCurrency": "NZD",
+      "IsCustomer": true,
+      "SalesTrackingCategories": [],
+      "PurchasesTrackingCategories": [],
       "ContactPersons": [],
-      "HasAttachments": false,
       "HasValidationErrors": false
+    }
+  ],
+  "Elements": [
+    {
+      "ValidationErrors": [
+        {
+          "Message": "This is a test error"
+        }
+      ]
     }
   ]
 }
