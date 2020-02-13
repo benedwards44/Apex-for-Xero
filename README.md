@@ -1,11 +1,11 @@
 # Apex-for-Xero
 
-<a href="https://githubsfdeploy.herokuapp.com">
+<a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
-(deploy from Github from https://andyinthecloud.com/category/githubsfdeploy/)
+(deploy from Github from https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero)
 
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
