@@ -4,7 +4,7 @@
         <fullName>Xero_Tenant_Id</fullName>
         <categories>Xero</categories>
         <language>en_US</language>
-        <protected>true</protected>
+        <protected>false</protected>
         <shortDescription>Xero Tenant Id</shortDescription>
         <value>82d2a576-821a-44ac-869d-7f902857741d</value>
     </labels>

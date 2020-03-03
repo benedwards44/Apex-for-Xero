@@ -104,5 +104,14 @@
       "UpdatedDateUTC": "\/Date(1566967627117+0000)\/",
       "CurrencyCode": "NZD"
     }
+  ],
+  "Elements": [
+    {
+      "ValidationErrors": [
+        {
+          "Message": "This is a test error"
+        }
+      ]
+    }
   ]
 }

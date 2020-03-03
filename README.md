@@ -1,11 +1,11 @@
 # Apex-for-Xero
 
-<a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero">
+<!-- <a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
-(deploy from Github from https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero)
+(deploy from Github from https://githubsfdeploy.herokuapp.com/app/githubdeploy/benedwards44/Apex-for-Xero) -->
 
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
@@ -15,6 +15,21 @@ The aim of this project is to act as a starting point for accessing Xero APIs vi
 
 For more information about the Xero APIs, check out:
 http://developer.xero.com/documentation/api/api-overview/
+
+## Working with DX
+Setup a scratch org:
+1. Make sure you have the correct Dev Hub authorized
+2. Run ```sh scripts/orgSetup.sh```
+3. Enter Alias when prompted
+4. Enter scratch org life when prompted (1-30 days)
+
+Deploy to a Sandbox / Production Org (Check Only)
+1. Run ```sh scripts/deployToOrg-CheckOnly.sh```
+2. Enter target username when prompted (make sure its an authorized Org)
+
+Deploy to a Sandbox / Production Org
+1. Run ```sh scripts/deployToOrg.sh```
+2. Enter target username when prompted (make sure its an authorized Org)
 
 ## Quick Setup
 
@@ -70,8 +85,12 @@ And a list of type XeroContact is returned.
 
 ```
 // Send Contact to Xero
-Account myAccount = [SELECT Name, ... FROM Account];
-XeroAPI.sendAccount(myAccount);
+
+XeroContact newContact = new XeroContact();
+myContact.EmailAddress = 'Snoop@Dogg.com';
+... // Add additional Invoice details based on the XeroContact wrapper
+
+XeroAPI.sendContact(newContact);
 ```
 You can view example JSON requests [here](http://developer.xero.com/documentation/api/contacts/)
 
@@ -91,7 +110,7 @@ newInvoice.Date_x = system.today();
 ... // Add additional Invoice details based on the XeroInvoice wrapper
 
 // Send Invoice to Xero
-XeroAPI.sendInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
+XeroAPI.sendInvoice(newInvoice);
 ```
 You can view example JSON requests [here](http://developer.xero.com/documentation/api/invoices/)
 

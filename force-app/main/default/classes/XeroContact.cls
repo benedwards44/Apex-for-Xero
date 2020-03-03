@@ -7,6 +7,8 @@
 **/
 public class XeroContact {
 
+    public XeroContact() {} 
+
     public String ContactID;
 	public String ContactStatus;
 	public String Name;
