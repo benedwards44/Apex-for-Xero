@@ -70,8 +70,12 @@ And a list of type XeroContact is returned.
 
 ```
 // Send Contact to Xero
-Account myAccount = [SELECT Name, ... FROM Account];
-XeroAPI.sendAccount(myAccount);
+
+XeroContact newContact = new XeroContact();
+myContact.EmailAddress = 'Snoop@Dogg.com';
+... // Add additional Invoice details based on the XeroContact wrapper
+
+XeroAPI.sendContact(newContact);
 ```
 You can view example JSON requests [here](http://developer.xero.com/documentation/api/contacts/)
 
@@ -91,7 +95,7 @@ newInvoice.Date_x = system.today();
 ... // Add additional Invoice details based on the XeroInvoice wrapper
 
 // Send Invoice to Xero
-XeroAPI.sendInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
+XeroAPI.sendInvoice(newInvoice);
 ```
 You can view example JSON requests [here](http://developer.xero.com/documentation/api/invoices/)
 
