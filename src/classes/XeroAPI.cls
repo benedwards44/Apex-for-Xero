@@ -250,7 +250,7 @@ public with sharing class XeroAPI {
 
             // If success
             if (isSuccess) {
-
+                System.debug(xeroInvoices);
                 return xeroInvoices[0];
             }
             // else, process the error
