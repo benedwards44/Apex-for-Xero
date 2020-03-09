@@ -41,7 +41,7 @@ http://developer.xero.com/documentation/api/api-overview/
     1. Setup -> Named Credential -> New Named Credential
     2. Label = "Xero"
     3. Name = "Xero"
-    4. URL = "https://api.xero.com/api.xro/2.0"
+    4. URL = "https://api.xero.com"
     5. Identity Type = "Named Principal"
     6. Authentication Protocol = "OAuth 2.0"
     7. Authentication Provider = "Xero" (the provider created in step 1)
