@@ -35,6 +35,7 @@ http://developer.xero.com/documentation/api/api-overview/
     2. App name = Your unique name
     3. Company or application URL = Can be anything, suggest either your Salesforce Org URL or your company website
     4. OAuth 2.0 redirect URI = Paste in the "Callback URL" copied from step 1 above
+    5. Take the generated Client Id and Client Secret and paste into the Auth. Provider created above
 
 3. Create the Salesforce Named Credential:
     1. Setup -> Named Credential -> New Named Credential
