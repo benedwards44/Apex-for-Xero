@@ -6,6 +6,8 @@
 * CHANGE LOG
 **/
 public class XeroInvoice {
+
+    public XeroInvoice() {}
     
     public String Type;	//ACCREC
 	public String InvoiceID;	//94b8a8d6-31fd-4d8c-8791-d1a2a7dfe898
@@ -38,6 +40,7 @@ public class XeroInvoice {
 	public List<CreditNote> CreditNotes;
 	public List<PrePayment> Prepayments;
 	public List<OverPayment> Overpayments;
+	public List<TrackingCategory> TrackingCategorys;
 
     public List<XeroValidationError> ValidationErrors;
 
