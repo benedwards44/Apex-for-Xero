@@ -69,7 +69,7 @@ In order to use Xero Webhooks, some additional setup is required:
     5. Click Save, then Public Access Settings
     6. Under Enabled Apex Classes, select XeroWebhook and save.
 2. Now, you need to enable Xero Webhooks in Xero. Following the instructions here: https://developer.xero.com/documentation/guides/webhooks/creating-webhooks/
-    1.  For the Notifications URL, enter the domain and URL created above and also include `/services/apex/rest/xero/webhook` which is the endpoint for the Apex Class XeroWebhook. For example `https://mydomain.my.salesforce-sites.com/api/services/apexrest/xero/webhook`. You can test the URL by navigating to it, you should receive a "HTTP Method 'GET' not allowed. Allowed are POST" error, which at least means the URL is correct
+    1.  For the Notifications URL, enter the domain and URL created above and also include `/services/apexrest/xero/webhook` which is the endpoint for the Apex Class XeroWebhook. For example `https://mydomain.my.salesforce-sites.com/api/services/apexrest/xero/webhook`. You can test the URL by navigating to it, you should receive a "HTTP Method 'GET' not allowed. Allowed are POST" error, which at least means the URL is correct
     2. Click Save and copy the "Webhook Key"
     3. Paste this key into the Xero Settings custom setting.
 3. Lastly, you need to activate the "Intent to Receive". This is a security measure which tells Xero the webhooks are signed and going to the right place. 
