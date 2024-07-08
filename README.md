@@ -9,9 +9,7 @@
 
 This application contains Apex utilities for accessing the [Xero](http://developer.xero.com) REST APIs.
 
-These classes are set up to use the [Private Application](http://developer.xero.com/documentation/getting-started/private-applications/) type.
-
-The aim of this project is to act as a starting point for accessing Xero APIs via Apex. I wanted to share this project as I spent a lot of time getting the authentication working for Xero, as Apex doesn't have a standard OAuth 1.0 library and there wasn't much detail online about it.
+The aim of this project is to act as a starting point for accessing Xero APIs via Apex. I wanted to share this project as I spent a lot of time getting the authentication working for Xero, as Apex doesn't have a standard OAuth 1.0 library and there wasn't much detail online about it. Having said that, Xero has now migrated to OAuth 2.0 so it's a bit easier however there is still some setup involved. Once the authentication is done the rest of the API is relatively straight forward.
 
 For more information about the Xero APIs, check out:
 http://developer.xero.com/documentation/api/api-overview/
@@ -28,7 +26,7 @@ http://developer.xero.com/documentation/api/api-overview/
     8. Token Endpoint URL = `https://identity.xero.com/connect/token`
     9. User Info Endpoint URL = `https://identity.xero.com/connect/userinfo`
     10. Token Issuer = `https://identity.xero.com`
-    9. Default Scopes: "openid profile email offline_access accounting.transactions accounting.contacts" (you can see all scopes here https://developer.xero.com/documentation/oauth2/scopes)
+    9. Default Scopes: `openid profile email offline_access accounting.transactions accounting.contacts` (you can see all scopes here https://developer.xero.com/documentation/oauth2/scopes)
     
     Leave everything as is. Click save and then copy the generated "Callback URL". Eg. https://login.salesforce.com/services/authcallback/00D2v000003QVUrCAO/Xero
 
@@ -56,6 +54,8 @@ http://developer.xero.com/documentation/api/api-overview/
     3. Update to the label:
         Setup -> Create -> Custom Labels -> Xero_Tenant_Id -> Edit -> Paste in value from above
 6. You can now access Xero API resources via Apex. Eg... `XeroAPI.getContacts();`
+
+Note: If you want to connect to multiple Xero Orgs, you would need to create a more scalable solution for this, such as a Custom Object or Custom Setting/Metadata to track the various Xero connections.
 
 ## Webhooks
 
