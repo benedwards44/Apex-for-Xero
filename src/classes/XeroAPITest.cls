@@ -19,7 +19,7 @@ public class XeroAPITest {
         Test.stopTest();
 
         system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
+            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
             xeroContact.ContactID, 
             'Xero Contact ID should be loaded against the response.'
         );
@@ -38,7 +38,7 @@ public class XeroAPITest {
         Test.stopTest();
 
         system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
+            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
             xeroContact.ContactID, 
             'Xero Contact ID should be loaded against the response.'
         );
@@ -65,7 +65,7 @@ public class XeroAPITest {
         Test.stopTest();
 
         system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
+            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
             myXeroContact.ContactID, 
             'Xero Contact ID should be loaded against the response.'
         );
