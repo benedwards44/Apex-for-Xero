@@ -111,11 +111,11 @@ XeroAPI.getInvoices();
 This method creates an invoice for the given XML:
 ```
 XeroInvoice newInvoice = new XeroInvoice();
-newInvoice.Date_x = system.today();
+newInvoice.Date_x = String.valueOf(System.today());
 ... // Add additional Invoice details based on the XeroInvoice wrapper
 
 // Send Invoice to Xero
-XeroAPI.sendInvoice(XeroXmlUtility.serialize(newInvoice, 'Invoice'));
+XeroAPI.sendInvoice(newInvoice);
 ```
 You can view example JSON requests [here](http://developer.xero.com/documentation/api/invoices/)
 
