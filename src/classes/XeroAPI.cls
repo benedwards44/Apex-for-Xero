@@ -133,12 +133,7 @@ public with sharing class XeroAPI {
             return xeroInvoices[0];
         }
         else {
-
-            // Throw exception
-            throw new XeroApiException(
-                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
-                response.getBody()
-            );
+            throw new XeroApiException('Error retrieving invoice', response);
         }
     }
 
@@ -181,12 +176,7 @@ public with sharing class XeroAPI {
             return (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroInvoice>.class);
         }
         else {
-
-            // Throw exception
-            throw new XeroApiException(
-                'Error retrieving invoices: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
-                response.getBody()
-            );
+            throw new XeroApiException('Error retrieving invoices', response);
         }
     }
 
@@ -210,12 +200,7 @@ public with sharing class XeroAPI {
             return response.getBodyAsBlob();
         }
         else {
-
-            // Throw exception
-            throw new XeroApiException(
-                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
-                response.getBody()
-            );
+            throw new XeroApiException('Error retrieving invoice', response);
         }
     }
 
@@ -288,12 +273,7 @@ public with sharing class XeroAPI {
             return xeroConnections[0].tenantId;
         }
         else {
-
-            // Throw exception
-            throw new XeroApiException(
-                'Error retrieving connections: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
-                response.getBody()
-            );
+            throw new XeroApiException('Error retrieving connections', response);
         }
     }
 
@@ -311,5 +291,16 @@ public with sharing class XeroAPI {
         return ((DateTime)modifiedDate).format('yyyy-MM-dd') + 'T00:00:00';
     }
 
-    public class XeroApiException extends Exception {}
+    public class XeroApiException extends Exception {
+        public XeroApiException(String msg, HttpResponse response){
+            this(msg
+                + ': '
+                + response.getStatusCode()
+                + ' - '
+                + response.getStatus()
+                + '\n\n'
+                + response.getBody()
+            );
+        }
+    }
 }
