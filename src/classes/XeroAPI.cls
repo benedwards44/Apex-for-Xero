@@ -14,7 +14,7 @@ public with sharing class XeroAPI {
         String resourceName = 'Contacts';
 
         // Callout to Xero to retrieve a single Contact
-        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName + '/' + xeroId); 
+        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName + '/' + xeroId);
 
         if (response.getStatusCode() < 300) {
 
@@ -29,7 +29,7 @@ public with sharing class XeroAPI {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving contact: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving contact: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -44,20 +44,20 @@ public with sharing class XeroAPI {
         String resourceName = 'Contacts';
 
         // Callout to Xero to retrieve contacts
-        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName); 
+        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName);
 
         if (response.getStatusCode() < 300) {
 
             String jsonSerialized = XeroUtils.generateJsonStringForParsing(response.getBody(), resourceName);
 
             // Now serialise the response and reutrn
-            return (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class); 
+            return (List<XeroContact>) JSON.deserialize(jsonSerialized, List<XeroContact>.class);
         }
         else {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving contacts: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving contacts: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -81,10 +81,10 @@ public with sharing class XeroAPI {
         // 401 errors are in a different format
         // So need to process in a different way
         if (response.getStatusCode() == 401) {
-            
+
             throw new XeroApiException(XeroUtils.process401Error(response.getBody()));
         }
-        else { 
+        else {
 
             // Cast back to a Xero Contact
             String jsonSerialized = XeroUtils.generateJsonStringForParsing(response.getBody(), isSuccess ? resourceName : 'Elements');
@@ -99,7 +99,7 @@ public with sharing class XeroAPI {
             }
             // else, process the error
             else {
-                
+
                 // Store the error
                 String xeroError = response.getStatusCode() + ': ' + response.getStatus() + '\n';
 
@@ -121,7 +121,7 @@ public with sharing class XeroAPI {
         String resourceName = 'Invoices';
 
         // Callout to Xero to retrieve invoices to update
-        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName + '/' + xeroId); 
+        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName + '/' + xeroId);
 
         if (response.getStatusCode() < 300) {
 
@@ -136,7 +136,7 @@ public with sharing class XeroAPI {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -150,7 +150,7 @@ public with sharing class XeroAPI {
 
         return getInvoices(null);
     }
-    
+
 
     /**
     *   @author Ben Edwards (ben@edwards.nz)
@@ -171,20 +171,20 @@ public with sharing class XeroAPI {
         }
 
         // Callout to Xero to retrieve invoices to update
-        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName, null, modifiedHeader); 
+        HttpResponse response = XeroCalloutService.executeCallout('GET', resourceName, null, modifiedHeader);
 
         if (response.getStatusCode() < 300) {
 
             String jsonSerialized = XeroUtils.generateJsonStringForParsing(response.getBody(), resourceName);
 
             // Now serialise the response and reutrn
-            return (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroInvoice>.class); 
+            return (List<XeroInvoice>) JSON.deserialize(jsonSerialized, List<XeroInvoice>.class);
         }
         else {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving invoices: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving invoices: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -200,10 +200,10 @@ public with sharing class XeroAPI {
 
         // Callout to Xero to retrieve invoice
         HttpResponse response = XeroCalloutService.executeCallout(
-            'GET', resourceName + '/' + xeroId, 
-            null, 
+            'GET', resourceName + '/' + xeroId,
+            null,
             new Map<String, String>{'Accept' => 'application/pdf'}
-        ); 
+        );
 
         if (response.getStatusCode() < 300) {
 
@@ -213,7 +213,7 @@ public with sharing class XeroAPI {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving invoice: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -255,7 +255,7 @@ public with sharing class XeroAPI {
             }
             // else, process the error
             else {
-                
+
                 // Store the error
                 String xeroError = response.getStatusCode() + ': ' + response.getStatus() + '\n';
 
@@ -275,7 +275,7 @@ public with sharing class XeroAPI {
     public static String getXeroTenantId () {
 
         // Callout to Xero to retrieve contacts
-        HttpResponse response = XeroCalloutService.executeCallout('GET', 'connections'); 
+        HttpResponse response = XeroCalloutService.executeCallout('GET', 'connections');
 
         if (response.getStatusCode() < 300) {
 
@@ -291,7 +291,7 @@ public with sharing class XeroAPI {
 
             // Throw exception
             throw new XeroApiException(
-                'Error retrieving connections: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' + 
+                'Error retrieving connections: ' + response.getStatusCode() + ' - ' + response.getStatus() + '\n\n' +
                 response.getBody()
             );
         }
@@ -309,7 +309,7 @@ public with sharing class XeroAPI {
         // Format the date into correct xero format
         // https://developer.xero.com/documentation/api/invoices#get
         return ((DateTime)modifiedDate).format('yyyy-MM-dd') + 'T00:00:00';
-    } 
+    }
 
     public class XeroApiException extends Exception {}
 }
