@@ -134,8 +134,7 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertNotEquals(
-            null,
+        Assert.isNotNull(
             myInvoice,
             'Fake Invoice should be returned from API.'
         );
