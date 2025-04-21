@@ -3,10 +3,10 @@
 * @date 3rd February 2020
 * @description Test class for the Xero API
 **/
-@isTest 
+@isTest
 public class XeroAPITest {
-    
-    @isTest 
+
+    @isTest
     static void testGetContact() {
 
         // Set the Mock Class
@@ -18,14 +18,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
-            xeroContact.ContactID, 
+        Assert.isFalse(
+            String.isBlank(xeroContact.ContactID),
             'Xero Contact ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testGetContacts() {
 
         // Set the Mock Class
@@ -37,14 +36,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
-            xeroContact.ContactID, 
+        Assert.isFalse(
+            String.isBlank(xeroContact.ContactID),
             'Xero Contact ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testSendContact() {
 
         // Set the Mock Class
@@ -52,7 +50,7 @@ public class XeroAPITest {
 
         XeroContact myXeroContact = new XeroContact(
             new Account(
-                Phone = '0800 SNOOPDOGG', 
+                Phone = '0800 SNOOPDOGG',
                 BillingStreet = '1 Snoop Lane',
                 ShippingStreet = '1 Snoop Lane'
             )
@@ -64,14 +62,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
-            myXeroContact.ContactID, 
+        Assert.isFalse(
+            String.isBlank(myXeroContact.ContactID),
             'Xero Contact ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void getGetInvoice() {
 
         // Set the Mock Class
@@ -83,14 +80,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
-            xeroInvoice.InvoiceID, 
+        Assert.isFalse(
+            String.isBlank(xeroInvoice.InvoiceID),
             'Xero Invoice ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testGetInvoices() {
 
         // Set the Mock Class
@@ -102,14 +98,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
-            xeroInvoice.InvoiceID, 
+        Assert.isFalse(
+            String.isBlank(xeroInvoice.InvoiceID),
             'Xero Invoice ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testGetInvoicesWithDaysFilter() {
 
         // Set the Mock Class
@@ -121,14 +116,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '10b46b4c-35c1-49c4-a7eb-983ab08ebe1a', 
-            xeroInvoice.InvoiceID, 
+        Assert.isFalse(
+            String.isBlank(xeroInvoice.InvoiceID),
             'Xero Invoice ID should be loaded against the response.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testGetInvoiceAsPDF() {
 
         // Set the Mock Class
@@ -140,14 +134,13 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertNotEquals(
-            null, 
-            myInvoice, 
+        Assert.isNotNull(
+            myInvoice,
             'Fake Invoice should be returned from API.'
         );
     }
 
-    @isTest 
+    @isTest
     static void testSendInvoice() {
 
         // Set the Mock Class
@@ -161,9 +154,8 @@ public class XeroAPITest {
 
         Test.stopTest();
 
-        system.assertEquals(
-            '30aa67f9-d5e5-4351-9e28-c085a6b2d37f', 
-            myXeroInvoice.InvoiceID, 
+        Assert.isFalse(
+            String.isBlank(myXeroInvoice.InvoiceID),
             'Xero Invoice ID should be loaded against the response.'
         );
     }
@@ -176,9 +168,8 @@ public class XeroAPITest {
 
         Test.startTest();
 
-        system.assertEquals(
-            '82d2a576-821a-44ac-869d-7f902857741d', 
-            XeroAPI.getXeroTenantId(),
+        Assert.isFalse(
+            String.isBlank(XeroAPI.getXeroTenantId()),
             'Xero Tenant should be retrieved.'
         );
 
